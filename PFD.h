@@ -3,6 +3,18 @@
 
 #include <iostream>
 
+
+// Data structure for Jobs with specific dependencies
+
+struct jobRules (int j) {
+    int jnum;
+    int deps;
+    int d[j];
+}
+
+
+
+
 /**
 * reads 
 *
