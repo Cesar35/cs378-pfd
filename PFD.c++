@@ -1,15 +1,12 @@
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 #include "PFD.h"
 
-// read function
+using namespace std;
 
-struct jobs (int j) {
-    int jnum;
-    int deps;
-    int d[j];
-}
+// read function
 
 bool PFD_read (std::istream& r, int& i, int& j) {
     r >> i;
@@ -22,11 +19,15 @@ bool PFD_read (std::istream& r, int& i, int& j) {
 
 }
 
+// Read helper function
+
 bool PFd_r_help(std::istream& r, int j) {
     
 }
 
-int PFD_eval (int, int);
+int PFD_eval (int, int){
+    return 0;
+}
 
 
 void PFD_print (std::ostream&, int);
@@ -35,8 +36,10 @@ void PFD_solve (std::istream& r, std::ostream& w) {
     int i;
     int j;
     if(PFD_read(r, i, j)) {
-       PFD_r_help(r, j);
-	   
+      vector<jobRules> Jobs(i);
+      PFD_r_help(r, j);
+      
+      	   
     }
 
 
