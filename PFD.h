@@ -6,14 +6,11 @@
 
 // Data structure for Jobs with specific dependencies
 
-struct jobRules (int j) {
+struct jobR {
     int jnum;
     int deps;
-    int d[j];
-}
-
-
-
+    int d[deps];
+};
 
 /**
 * reads 
@@ -23,7 +20,7 @@ bool PFD_read (std::istream&, int&, int&);
 
 int PFD_eval (int, int);
 
-bool PFd_r_help(std::istream&, int);
+bool PFd_r_help(std::istream&, int, vector<jobR>&);
 
 void PFD_print (std::ostream&, int);
 
