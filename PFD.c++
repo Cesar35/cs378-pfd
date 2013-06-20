@@ -21,7 +21,7 @@ bool PFD_read (std::istream& r, int& i, int& j) {
 
 // Read helper function
 
-bool PFD_r_help(std::istream& r, int j, vector<jobR>& Jobs) {
+bool PFD_r_help(std::istream& r, int j, vector<jobR>& Jobs){
     int x;
     for(int i = 0; i < j; i++) {
       jobR jr;
@@ -37,14 +37,29 @@ bool PFD_r_help(std::istream& r, int j, vector<jobR>& Jobs) {
     return true;
 }
 
-int PFD_eval (int i, int j, vector<jobR> Jobs){
-    /*vector<int> seq;
-    for(int i = 1; i < Jobs.size; i++) {
-        if(Jobs.at(i).jnum == 0) {
-            seq.push_back();
+vector<int> PFD_eval (int i, int j, vector<jobR> Jobs){
+    vector<int> seq;
+    int curjob = 0;
+    for(int x = 1; x < Jobs.size(); x++){
+        for(int i = 1; i < Jobs.size(); i++) {
+            if(Jobs.at(i).jnum == 0) {
+                curjob = i;
+                seq.push_back(i);
+                Jobs.at(i).jnum = -1;
+                break;
+            }
         }
-    }*/
-    return 0;
+        int i = 1;
+        while(i < Jobs.size()){
+            for(int j = 0; j < Jobs.at(i).d.size(); j++){
+                if(Jobs.at(i).d.at(j) == curjob){
+                    --Jobs.at(i).deps;
+                }
+            }
+            ++i;
+        }
+    }
+    return seq;
 }
 
 
