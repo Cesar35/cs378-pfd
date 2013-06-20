@@ -2,9 +2,16 @@
 #include <iostream> // endl, istream, ostream
 #include <vector>
 
-#include "PFD.h"
-
 using namespace std;
+
+struct jobR {
+    int jnum;
+    int deps;
+    vector<int> d;
+    jobR() : jnum(0), deps (0){
+      
+    }
+};
 
 // read function
 
@@ -83,4 +90,11 @@ void PFD_solve (std::istream& r, std::ostream& w) {
       PFD_print(w, res);
       	   
     }
+}
+
+int main () {
+    using namespace std;
+    ios_base::sync_with_stdio(false);
+    PFD_solve(cin, cout);
+    return 0;
 }
