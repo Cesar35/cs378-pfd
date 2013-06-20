@@ -23,21 +23,23 @@ struct TestPFD : CppUnit::TestFixture {
         CPPUNIT_ASSERT(b == true);
         CPPUNIT_ASSERT(i == 2);
         CPPUNIT_ASSERT(j == 1);}
-    void test_PFd_r_help() {
+        
+    void test_PFD_r_help() {
         std::istringstream r("2 1 1\n");
         int j = 1;
-        vector<jobR> jobs(2);
-        const bool b = PFd_r_help(r, j, jobs[]);
+        vector<jobR> jobs(3);
+        const bool b = PFD_r_help(r, j, jobs);
         CPPUNIT_ASSERT(b == true);
         CPPUNIT_ASSERT(jobs.at(0).jnum == 0);
         CPPUNIT_ASSERT(jobs.at(0).deps == 0);
-        CPPUNIT_ASSERT(jobs.at(1).jnum == 2);
-        CPPUNIT_ASSERT(jobs.at(1).deps == 1);
-        CPPUNIT_ASSERT(jobs.at(1).d[0] == 1);
-        
+        CPPUNIT_ASSERT(jobs.at(2).jnum == 2);
+        CPPUNIT_ASSERT(jobs.at(2).deps == 1);
+        CPPUNIT_ASSERT(jobs.at(2).d.at(0) == 1);
     }
-        
-}
+
+     // -----
+    // suite
+    // -----
 
  CPPUNIT_TEST_SUITE(TestPFD);
     CPPUNIT_TEST(test_read);
