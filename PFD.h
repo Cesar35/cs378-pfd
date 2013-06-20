@@ -2,6 +2,9 @@
 #define PFD_h
 
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 
 // Data structure for Jobs with specific dependencies
@@ -9,7 +12,10 @@
 struct jobR {
     int jnum;
     int deps;
-    int d[deps];
+    vector<int> d;
+    jobR() : jnum(0), deps (0){
+      
+    }
 };
 
 /**
@@ -20,7 +26,7 @@ bool PFD_read (std::istream&, int&, int&);
 
 int PFD_eval (int, int);
 
-bool PFd_r_help(std::istream&, int, vector<jobR>&);
+bool PFD_r_help(std::istream&, int, vector<jobR>&);
 
 void PFD_print (std::ostream&, int);
 
