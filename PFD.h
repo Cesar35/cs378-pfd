@@ -24,11 +24,11 @@ struct jobR {
 */
 bool PFD_read (std::istream&, int&, int&);
 
-int PFD_eval (int, int);
+vector<int> PFD_eval (int, int, vector<jobR>&);
 
 bool PFD_r_help(std::istream&, int, vector<jobR>&);
 
-void PFD_print (std::ostream&, int);
+void PFD_print (std::ostream&, vector<int>&);
 
 void PFD_solve (std::istream&, std::ostream&);
 
