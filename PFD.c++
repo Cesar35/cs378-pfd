@@ -1,10 +1,17 @@
 #include <cassert> // assert
 #include <iostream> // endl, istream, ostream
 #include <vector>
+#include <queue>
 
 #include "PFD.h"
 
 using namespace std;
+
+struct JobComparator {
+    bool operator() (jobR j1, jobR j2) {
+        return j1.jnum > j2.jnum;
+    }
+};
 
 // read function
 
@@ -42,20 +49,29 @@ bool PFD_r_help(std::istream& r, int j, vector<jobR>& Jobs){
 vector<int> PFD_eval (int i, int j, vector<jobR>& Jobs){
     vector<int> seq;
     int curjob = 0;
-    for(int x = 1; x < (int)Jobs.size(); x++){
-        for(int i = 1; i < (int)Jobs.size(); i++) {
-            if(Jobs.at(i).deps == 0) {
-                curjob = i;
-                seq.push_back(i);
-                Jobs.at(i).deps = -1;
-                break;
-            }
+    priority_queue<jobR, vector<jobR>, JobComparator> q;
+    for(int i = 1; i < (int)Jobs.size(); i++){
+        if(Jobs.at(i).deps == 0){
+            //cout << Jobs.at(i).jnum << endl;
+            q.push(Jobs.at(i));
+            Jobs.at(i).deps = -1;
         }
+    }
+    for(int x = 1; x < (int)Jobs.size(); x++){
+        curjob = q.top().jnum;
+        //cout << curjob << endl;
+        q.pop();
+        seq.push_back(curjob);
         int i = 1;
         while(i < (int)Jobs.size()){
             for(int j = 0; j < (int)Jobs.at(i).d.size(); j++){
                 if(Jobs.at(i).d.at(j) == curjob){
                     --Jobs.at(i).deps;
+					if(Jobs.at(i).deps == 0){
+                        //cout << Jobs.at(i).jnum << endl;
+						q.push(Jobs.at(i));
+                        Jobs.at(i).deps = -1;
+                    }
                 }
             }
             ++i;
@@ -66,9 +82,11 @@ vector<int> PFD_eval (int i, int j, vector<jobR>& Jobs){
 
 
 void PFD_print (std::ostream& w, vector<int>& res){
-    //assert(i > 0);
     for(int i = 0; i < (int)res.size(); i++) {
-        w << res.at(i) << " ";
+        if(i == (int) res.size() -1)
+            w << res[i];
+        else 
+            w << res[i] << " ";
     }
 }
 
