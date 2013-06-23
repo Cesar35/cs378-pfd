@@ -52,14 +52,12 @@ vector<int> PFD_eval (int i, int j, vector<jobR>& Jobs){
     priority_queue<jobR, vector<jobR>, JobComparator> q;
     for(int i = 1; i < (int)Jobs.size(); i++){
         if(Jobs.at(i).deps == 0){
-            //cout << Jobs.at(i).jnum << endl;
             q.push(Jobs.at(i));
             Jobs.at(i).deps = -1;
         }
     }
     for(int x = 1; x < (int)Jobs.size(); x++){
         curjob = q.top().jnum;
-        //cout << curjob << endl;
         q.pop();
         seq.push_back(curjob);
         int i = 1;
@@ -68,7 +66,6 @@ vector<int> PFD_eval (int i, int j, vector<jobR>& Jobs){
                 if(Jobs.at(i).d.at(j) == curjob){
                     --Jobs.at(i).deps;
 					if(Jobs.at(i).deps == 0){
-                        //cout << Jobs.at(i).jnum << endl;
 						q.push(Jobs.at(i));
                         Jobs.at(i).deps = -1;
                     }
